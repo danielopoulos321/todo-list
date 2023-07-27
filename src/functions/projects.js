@@ -13,7 +13,7 @@ const Project = (name) => {
     };
 
     function pushTask(title, description, dueDate, priority) {
-        _projectTasks.push(Task('test', 'test2', 'test3', 'test4'));
+        _projectTasks.push(Task(title, description, dueDate, priority));
     };
 
     function getTasks() {
