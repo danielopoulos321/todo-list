@@ -7,6 +7,10 @@ button{
     width: 100px;
 }
 
+.active{
+    background-color: chartreuse;
+}
+
 .container{
     height: 100vh;
     display: grid;
