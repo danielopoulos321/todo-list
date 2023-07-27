@@ -22,7 +22,7 @@ function createProjects(name) {
     const projectButton = document.createElement('button');
     projectButton.classList.add('project');
     projectButton.textContent = name;
-    projectButton.dataset.name = name;
+    projectButton.dataset.name = name.replace(/\s/g, "");
     projectButton.addEventListener('click', (e) => {
         activeProject(e);
         loadProjectTasks(e.target.textContent);
@@ -47,7 +47,8 @@ function activeProject(e) {
     if(e == 'personal'){
         projectButtons[0].classList.add('active');
     } else if (typeof e === 'string') {
-        const currentProject = document.querySelector(`[data-name=${e}]`);
+        let dataName = e.replace(/\s/g, "");
+        const currentProject = document.querySelector(`[data-name=${dataName}]`);
         currentProject.classList.add('active');
     } else {
         e.target.classList.add('active');
