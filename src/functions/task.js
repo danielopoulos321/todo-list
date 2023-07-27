@@ -1,4 +1,4 @@
-const taskFactory = (title, description, dueDate, priority) => {
+const Task = (title, description, dueDate, priority) => {
 
     let _title = title;
     let _description = description;
@@ -12,7 +12,6 @@ const taskFactory = (title, description, dueDate, priority) => {
     function getDescription(){
         return _description;
     };
-
 
     function getDueDate(){
         return _dueDate;
@@ -38,10 +37,9 @@ const taskFactory = (title, description, dueDate, priority) => {
     function setPriority(value){
         _priority = value;
     };
-    
 
     return {getTitle, setTitle, getDescription, setDescription, 
         getDueDate, setDueDate, getPriority, setPriority};
 };
 
-export default taskFactory;
+export default Task;
