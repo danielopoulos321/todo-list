@@ -38,8 +38,12 @@ const Task = (title, description, dueDate, priority) => {
         _priority = value;
     };
 
+    function toString(){
+        return _title + ' ' + _description + ' ' + _dueDate + ' ' + _priority;
+    }
+
     return {getTitle, setTitle, getDescription, setDescription, 
-        getDueDate, setDueDate, getPriority, setPriority};
+        getDueDate, setDueDate, getPriority, setPriority, toString};
 };
 
 export default Task;

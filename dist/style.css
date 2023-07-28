@@ -40,8 +40,18 @@ button{
     margin: 1em;
 }
 
-/* Project Modal */
-#projectModal{
+.task{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 1em;
+    width: auto;
+    background-color: #fefefe;
+}
+
+/* Modals */
+#projectModal,
+#taskModal{
     display: none;
     position: fixed;
     z-index: 1;

@@ -61,9 +61,8 @@ function createNewTaskButton(){
     const newTaskButton = document.createElement('button');
     newTaskButton.textContent = '+ To-Do';
     newTaskButton.addEventListener('click', () => {
-        const currentProject = document.querySelector('.active').textContent;
-        Todo.getProject(currentProject).pushTask('test', 'test2', 'test3', 'test4');
-        loadProjectTasks(currentProject);
+        const taskModal = document.getElementById('taskModal');
+        taskModal.style.display = 'block';
     });
     content.appendChild(newTaskButton);
 }
@@ -74,29 +73,54 @@ function loadProjectTasks (projectName) {
     const allTasks = Todo.getProject(projectName).getTasks();
     allTasks.forEach((task) => {
         const newTask = document.createElement('div');
+        newTask.classList.add('task')
         const name = document.createElement('h1');
+        const date = document.createElement('h3');
+        const notes = document.createElement('p');
+        const priority = document.createElement('p');
         name.textContent = task.getTitle();
+        date.textContent = task.getDueDate();
+        notes.textContent = task.getDescription();
+        priority.textContent = task.getPriority();
         newTask.appendChild(name);
+        newTask.appendChild(date);
+        newTask.appendChild(notes);
+        newTask.appendChild(priority);
         content.appendChild(newTask);
     })
 }
 
 //Event Listeners
-const projectForm = document.getElementById('newProject');
+    //Add Project Button
+const projectForm = document.getElementById('projectForm');
 projectForm.addEventListener("submit", function(e) {
     e.preventDefault();
-    let title = document.getElementById('title').value;
-    Todo.addProject(title);
+    let projectName = document.getElementById('projectName');
+    Todo.addProject(projectName.value);
     loadProjects();
-    activeProject(title);
-    toggleProjectModal();
+    activeProject(projectName.value);
+    resetForm('project');
 });
 
-const closeBTNs = document.querySelectorAll('.close');
-closeBTNs.forEach((button) => {
-    button.addEventListener('click', toggleProjectModal);
+    //Add Task Button
+const taskForm = document.getElementById('taskForm');
+taskForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+    let name = document.getElementById('taskName').value;
+    let notes = document.getElementById('taskNotes').value;
+    let date = document.getElementById('taskDate').value;
+    let priority = document.getElementById('priority').value;
+    const currentProject = document.querySelector('.active').textContent;
+    Todo.getProject(currentProject).pushTask(name, notes, date, priority);
+    loadProjectTasks(currentProject);
+    resetForm('task');
 });
 
+    //Modal Close Buttons
+const projectClose = document.getElementById('projectClose');
+const taskClose = document.getElementById('taskClose');
+projectClose.addEventListener('click', () => toggleModal('project'));
+taskClose.addEventListener('click', () => toggleModal('task'));
 
 
 //Helper Functions
@@ -107,13 +131,19 @@ function clear(divName) {
     }
 };
 
-function toggleProjectModal(){
-    const projectModal = document.getElementById('projectModal');
-    if (projectModal.style.display == 'block') {
-        projectModal.style.display = 'none';
+function toggleModal(choice){
+    const modal = document.getElementById(`${choice}Modal`);
+    if (modal.style.display == 'block') {
+        modal.style.display = 'none';
     } else {
-        projectModal.style.display = 'block';
+        modal.style.display = 'block';
     }
+}
+
+function resetForm(choice){
+    toggleModal(choice);
+    const form = document.getElementById(`${choice}Form`);
+    form.reset();
 }
 
 export { loadPage };
