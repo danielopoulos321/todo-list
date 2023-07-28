@@ -12,15 +12,33 @@
         <div id="sidebar"></div>
         <div id="content"></div>
         <div id="projectModal">
-                <form id="newProject" class="modal-content">
+                <form id="projectForm" class="modal-content">
                     <div class="form-head">
-                        <h3>Add a New Project</h3>
-                        <span class="close">&times;</span>
+                        <h3>New Project</h3>
+                        <span id="projectClose" class="close">&times;</span>
                     </div>
-                    <input type="text" name="title" id="title" placeholder="Title">
+                    <input type="text" name="projectName" id="projectName" placeholder="Project Name">
                     <input type="submit">
                 </form>
-            </div>
+        </div>
+        <div id="taskModal">
+            <form id="taskForm" class="modal-content">
+                <div class="form-head">
+                    <h3>New Task</h3>
+                    <span id="taskClose" class="close">&times;</span>
+                </div>
+                <input type="text" name="taskName" id="taskName" placeholder="Task">
+                <input type="date" name="taskDate" id="taskDate" placeholder="Due Date">
+                <input type="text" name="taskeNotes" id="taskNotes" placeholder="Notes">
+                <select name="priority" id="priority">
+                    <option value="" disabled selected>Placeholder</option>
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+                <input type="submit">
+            </form>
+        </div>
     </div>
 </body>
 <script src="main.js"></script>
