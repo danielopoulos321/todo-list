@@ -20,7 +20,7 @@ const Project = (name) => {
         return _projectTasks;
     };
 
-    return {getName, setName, pushTask, getTasks};
+    return {getName, setName, pushTask, getTasks, _name};
 };
 
 export default Project;

@@ -6,6 +6,7 @@ const Todo = (() => {
     projects.push(Project('Work'));
     projects.push(Project('Travel'));
 
+
     function getProjects(){
         return projects;
     }

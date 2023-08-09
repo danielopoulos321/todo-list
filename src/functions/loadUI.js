@@ -1,4 +1,5 @@
 import Todo from "./todo.js";
+import Storage from "./storage.js";
 
 //Master Page
 function loadPage() {
@@ -11,9 +12,12 @@ function loadPage() {
 //Project DOM 
 function loadProjects() {
     clear('sidebar');
-    Todo.getProjects().forEach((project) => {
-        createProjects(project.getName());
-    });
+    Storage.loadProjects().forEach((project) => {
+        createProjects(project);
+    })
+    // Todo.getProjects().forEach((project) => {
+    //     createProjects(project.getName());
+    // });
     createNewProjectButton();
 }
 
