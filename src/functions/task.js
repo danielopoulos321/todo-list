@@ -52,7 +52,7 @@ const Task = (title, description, dueDate, priority) => {
     }
 
     return {getTitle, setTitle, getDescription, setDescription, 
-        getDueDate, setDueDate, getPriority, setPriority, toString};
+        getDueDate, setDueDate, getPriority, setPriority, toString, toJSON};
 };
 
 export default Task;

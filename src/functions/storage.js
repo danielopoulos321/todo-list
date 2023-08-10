@@ -36,8 +36,14 @@ const Storage = (() => {
         return todoList.getProjects();
     }
 
+    function addTask(currentProject, taskName, taskNotes, taskDate, taskDescription) {
+        const todoList = loadTodo();
+        todoList.getProject(currentProject).pushTask(taskName, taskNotes, taskDate, taskDescription);
+        saveTodo(todoList);
+    }
 
-    return {loadTodo, addProject, getProjects}
+
+    return {loadTodo, addProject, getProjects, addTask}
 })();
 
 export default Storage;

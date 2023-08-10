@@ -111,7 +111,7 @@ taskForm.addEventListener("submit", function(e) {
     let date = document.getElementById('taskDate').value;
     let priority = document.getElementById('priority').value;
     const currentProject = document.querySelector('.active').textContent;
-    Todo.getProject(currentProject).pushTask(name, notes, date, priority);
+    Storage.addTask(currentProject, name, notes, date, priority);
     loadProjectTasks(currentProject);
     resetForm('task');
 });
