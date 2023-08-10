@@ -1,6 +1,6 @@
 import Project from "./projects";
 
-const Todo = (() => {
+const Todo = () => {
     let projects = [];
     projects.push(Project('Personal'));
     projects.push(Project('Work'));
@@ -9,6 +9,10 @@ const Todo = (() => {
 
     function getProjects(){
         return projects;
+    }
+
+    function setProjects(array) {
+        projects = array;
     }
 
     function getProject(projectName) {
@@ -20,8 +24,14 @@ const Todo = (() => {
             return
         projects.push(Project(projectName));
     }
-    
-    return {getProjects, getProject, addProject}
-})();
+
+    function toJSON() {
+        return {
+            projects: projects.map(project => project.toJSON())
+        };
+    }
+
+    return {getProjects, getProject, addProject, setProjects, toJSON}
+};
 
 export default Todo;

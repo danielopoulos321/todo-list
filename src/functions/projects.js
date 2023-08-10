@@ -20,7 +20,14 @@ const Project = (name) => {
         return _projectTasks;
     };
 
-    return {getName, setName, pushTask, getTasks, _name};
+    function toJSON() {
+        return {
+            name: _name,
+            projectTasks: _projectTasks.map(task => task.toJSON())
+        };
+    }
+
+    return {getName, setName, pushTask, getTasks, _name, toJSON};
 };
 
 export default Project;
