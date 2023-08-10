@@ -42,8 +42,17 @@ const Task = (title, description, dueDate, priority) => {
         return _title + ' ' + _description + ' ' + _dueDate + ' ' + _priority;
     }
 
+    function toJSON() {
+        return {
+            title: _title, 
+            description: _description,
+            dueDate: _dueDate,
+            priority: _priority
+        };
+    }
+
     return {getTitle, setTitle, getDescription, setDescription, 
-        getDueDate, setDueDate, getPriority, setPriority, toString};
+        getDueDate, setDueDate, getPriority, setPriority, toString, toJSON};
 };
 
 export default Task;

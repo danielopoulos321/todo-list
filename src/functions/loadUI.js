@@ -1,4 +1,4 @@
-import Todo from "./todo.js";
+import Storage from "./storage.js";
 
 //Master Page
 function loadPage() {
@@ -10,8 +10,8 @@ function loadPage() {
 
 //Project DOM 
 function loadProjects() {
-    clear('sidebar');
-    Todo.getProjects().forEach((project) => {
+    clear('sidebar');    
+    Storage.getProjects().forEach((project) => {
         createProjects(project.getName());
     });
     createNewProjectButton();
@@ -70,7 +70,7 @@ function createNewTaskButton(){
 function loadProjectTasks (projectName) {
     const content = document.getElementById('content');
     content.innerHTML = '';
-    const allTasks = Todo.getProject(projectName).getTasks();
+    const allTasks = Storage.loadTodo().getProject(projectName).getTasks();
     allTasks.forEach((task) => {
         const newTask = document.createElement('div');
         newTask.classList.add('task')
@@ -96,7 +96,7 @@ const projectForm = document.getElementById('projectForm');
 projectForm.addEventListener("submit", function(e) {
     e.preventDefault();
     let projectName = document.getElementById('projectName');
-    Todo.addProject(projectName.value);
+    Storage.addProject(projectName.value);
     loadProjects();
     activeProject(projectName.value);
     resetForm('project');
@@ -111,7 +111,7 @@ taskForm.addEventListener("submit", function(e) {
     let date = document.getElementById('taskDate').value;
     let priority = document.getElementById('priority').value;
     const currentProject = document.querySelector('.active').textContent;
-    Todo.getProject(currentProject).pushTask(name, notes, date, priority);
+    Storage.addTask(currentProject, name, notes, date, priority);
     loadProjectTasks(currentProject);
     resetForm('task');
 });
