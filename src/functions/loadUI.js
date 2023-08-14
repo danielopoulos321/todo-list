@@ -10,30 +10,31 @@ function loadPage() {
 
 //Project DOM 
 function loadProjects() {
-    clear('sidebar');    
+    clear('projects');
     Storage.getProjects().forEach((project) => {
         createProjects(project.getName());
     });
-    createNewProjectButton();
+    createNewProjectButton();    
 }
 
 function createProjects(name) {
-    const sidebar = document.getElementById('sidebar');
+    const projects = document.getElementById('projects');
     const projectButton = document.createElement('button');
     projectButton.classList.add('project');
     projectButton.textContent = name;
     projectButton.dataset.name = name.replace(/\s/g, "");
-    projectButton.addEventListener('click', (e) => {
-        activeProject(e);
+    projectButton.addEventListener('click', function(e) {
+        activeProject(this.dataset.name);
         loadProjectTasks(e.target.textContent);
     });
-    sidebar.appendChild(projectButton);
+    projects.appendChild(projectButton);
 }
 
 function createNewProjectButton() {
-    const sidebar = document.getElementById('sidebar');
+    const sidebar = document.getElementById('projects');
     const newProjectButton = document.createElement('button');
     newProjectButton.textContent = '+ Project';
+    newProjectButton.classList.add('project');
     newProjectButton.addEventListener('click', () => {
         const projectModal = document.getElementById('projectModal');
         projectModal.style.display = 'block';
@@ -43,13 +44,16 @@ function createNewProjectButton() {
 
 function activeProject(e) {
     const projectButtons = document.querySelectorAll('.project');
+    const projectName = document.getElementById('currentProject');
     projectButtons.forEach(button => button.classList.remove('active'));
     if(e == 'personal'){
         projectButtons[0].classList.add('active');
+        projectName.innerHTML = projectButtons[0].dataset.name;
     } else if (typeof e === 'string') {
         let dataName = e.replace(/\s/g, "");
         const currentProject = document.querySelector(`[data-name=${dataName}]`);
         currentProject.classList.add('active');
+        projectName.innerHTML = currentProject.dataset.name;
     } else {
         e.target.classList.add('active');
     }
@@ -57,18 +61,19 @@ function activeProject(e) {
 
 //Task DOM
 function createNewTaskButton(){
-    const content = document.getElementById('header');
+    const header = document.getElementById('header');
     const newTaskButton = document.createElement('button');
     newTaskButton.textContent = '+ To-Do';
+    newTaskButton.setAttribute('id', 'newTask');
     newTaskButton.addEventListener('click', () => {
         const taskModal = document.getElementById('taskModal');
         taskModal.style.display = 'block';
     });
-    content.appendChild(newTaskButton);
+    header.appendChild(newTaskButton);
 }
 
 function loadProjectTasks (projectName) {
-    const content = document.getElementById('content');
+    const content = document.getElementById('tasks');
     content.innerHTML = '';
     const allTasks = Storage.loadTodo().getProject(projectName).getTasks();
     allTasks.forEach((task) => {
