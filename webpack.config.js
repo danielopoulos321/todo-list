@@ -7,9 +7,10 @@ module.exports = {
     entry: './src/index.js',
     devtool: 'inline-source-map',
     plugins: [
-        // new CleanWebpackPlugin(),
+        new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             title: 'Development',
+            template: './src/template.html'
         }),
       ],
     output: {
