@@ -83,6 +83,7 @@ button{
     align-items: center;
     justify-content: space-around;
     margin: 1em;
+    padding: .5em;
     width: auto;
     border-radius: .75em;
     background-color: hsla(0, 0%, 100%, 0.65);

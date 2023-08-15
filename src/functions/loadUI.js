@@ -76,21 +76,36 @@ function loadProjectTasks (projectName) {
     const content = document.getElementById('tasks');
     content.innerHTML = '';
     const allTasks = Storage.loadTodo().getProject(projectName).getTasks();
-    allTasks.forEach((task) => {
+    allTasks.forEach((task, index) => {
         const newTask = document.createElement('div');
-        newTask.classList.add('task')
+        newTask.classList.add('task');
+
         const name = document.createElement('h1');
         const date = document.createElement('h3');
         const notes = document.createElement('p');
         const priority = document.createElement('p');
+
         name.textContent = task.getTitle();
         date.textContent = task.getDueDate();
         notes.textContent = task.getDescription();
         priority.textContent = task.getPriority();
+
+        const edit = document.createElement('button');
+        edit.classList.add('edit');
+        edit.textContent = 'Edit';
+        edit.dataset.taskIndex = index;
+
+        const remove = document.createElement('button');
+        remove.classList.add('remove');
+        remove.textContent = 'Remove';
+        remove.dataset.taskIndex = index;
+
         newTask.appendChild(name);
         newTask.appendChild(date);
         newTask.appendChild(notes);
         newTask.appendChild(priority);
+        newTask.appendChild(edit);
+        // newTask.appendChild(remove);
         content.appendChild(newTask);
     })
 }
@@ -107,8 +122,10 @@ projectForm.addEventListener("submit", function(e) {
     resetForm('project');
 });
 
-    //Add Task Button
+//Task Submission Button
 const taskForm = document.getElementById('taskForm');
+let editingTask = null;
+let currentIndex = null;
 taskForm.addEventListener("submit", function(e) {
     e.preventDefault();
     let name = document.getElementById('taskName').value;
@@ -116,10 +133,31 @@ taskForm.addEventListener("submit", function(e) {
     let date = document.getElementById('taskDate').value;
     let priority = document.getElementById('priority').value;
     const currentProject = document.querySelector('.active').textContent;
-    Storage.addTask(currentProject, name, notes, date, priority);
+
+    if (editingTask){
+        Storage.updateTask(currentProject, currentIndex, name, notes, date, priority);
+        editingTask = null;
+        currentIndex = null;
+    } else {
+        Storage.addTask(currentProject, name, notes, date, priority);
+    }
     loadProjectTasks(currentProject);
     resetForm('task');
 });
+
+//Edit Buttons
+const taskContent = document.getElementById('tasks');
+taskContent.addEventListener('click', function(e) {
+    if (e.target.classList.contains('edit')) {
+        currentIndex = e.target.dataset.taskIndex;
+        const currentProject = document.querySelector('.active').textContent;
+        editingTask = Storage.getTask(currentProject, currentIndex);
+        document.getElementById('taskName').value = editingTask.getTitle();
+        document.getElementById('taskNotes').value = editingTask.getDescription();
+        document.getElementById('taskDate').value = editingTask.getDueDate();
+        document.getElementById('priority').value = editingTask.getPriority();
+    }
+})
 
     //Modal Close Buttons
 const projectClose = document.getElementById('projectClose');

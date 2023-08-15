@@ -36,14 +36,28 @@ const Storage = (() => {
         return todoList.getProjects();
     }
 
-    function addTask(currentProject, taskName, taskNotes, taskDate, taskDescription) {
+    function addTask(currentProject, taskName, taskDescription, taskDate, taskPriority) {
         const todoList = loadTodo();
-        todoList.getProject(currentProject).pushTask(taskName, taskNotes, taskDate, taskDescription);
+        todoList.getProject(currentProject).pushTask(taskName, taskDescription, taskDate, taskPriority);
+        saveTodo(todoList);
+    }
+
+    function getTask(currentProject, index) {
+        const todoList = loadTodo();
+        return todoList.getProject(currentProject).getTasks()[index];
+    }
+
+    function updateTask(currentProject, index, taskName, taskDescription, taskDate, taskPriority) {
+        const todoList = loadTodo();
+        todoList.getProject(currentProject).getTasks()[index].setTitle(taskName);
+        todoList.getProject(currentProject).getTasks()[index].setDescription(taskDescription);
+        todoList.getProject(currentProject).getTasks()[index].setDueDate(taskDate);
+        todoList.getProject(currentProject).getTasks()[index].setPriority(taskPriority);
         saveTodo(todoList);
     }
 
 
-    return {loadTodo, addProject, getProjects, addTask}
+    return {loadTodo, addProject, getProjects, addTask, getTask, updateTask}
 })();
 
 export default Storage;
