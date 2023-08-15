@@ -56,8 +56,14 @@ const Storage = (() => {
         saveTodo(todoList);
     }
 
+    function deleteTask(currentProject, currentIndex) {
+        const todoList = loadTodo();
+        todoList.getProject(currentProject).deleteTask(currentIndex);
+        saveTodo(todoList);
+    }
 
-    return {loadTodo, addProject, getProjects, addTask, getTask, updateTask}
+
+    return {loadTodo, addProject, getProjects, addTask, getTask, updateTask, deleteTask}
 })();
 
 export default Storage;

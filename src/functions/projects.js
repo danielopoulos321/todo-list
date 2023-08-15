@@ -20,6 +20,10 @@ const Project = (name) => {
         return _projectTasks;
     };
 
+    function deleteTask(index) {
+        _projectTasks.splice(index, 1);
+    }
+
     function toJSON() {
         return {
             name: _name,
@@ -27,7 +31,7 @@ const Project = (name) => {
         };
     }
 
-    return {getName, setName, pushTask, getTasks, _name, toJSON};
+    return {getName, setName, pushTask, getTasks, _name, toJSON, deleteTask};
 };
 
 export default Project;

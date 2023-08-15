@@ -105,7 +105,7 @@ function loadProjectTasks (projectName) {
         newTask.appendChild(notes);
         newTask.appendChild(priority);
         newTask.appendChild(edit);
-        // newTask.appendChild(remove);
+        newTask.appendChild(remove);
         content.appendChild(newTask);
     })
 }
@@ -145,7 +145,7 @@ taskForm.addEventListener("submit", function(e) {
     resetForm('task');
 });
 
-//Edit Buttons
+//Edit Task Buttons
 const taskContent = document.getElementById('tasks');
 taskContent.addEventListener('click', function(e) {
     if (e.target.classList.contains('edit')) {
@@ -156,10 +156,22 @@ taskContent.addEventListener('click', function(e) {
         document.getElementById('taskNotes').value = editingTask.getDescription();
         document.getElementById('taskDate').value = editingTask.getDueDate();
         document.getElementById('priority').value = editingTask.getPriority();
+        toggleModal('task');
     }
 })
 
-    //Modal Close Buttons
+//Remove Task Buttons
+taskContent.addEventListener('click', function(e) {
+    if (e.target.classList.contains('remove')) {
+        currentIndex = e.target.dataset.taskIndex;
+        const currentProject = document.querySelector('.active').textContent;
+        Storage.deleteTask(currentProject, currentIndex);
+        currentIndex = null;
+        loadProjectTasks(currentProject);
+    }
+})
+
+//Modal Close Buttons
 const projectClose = document.getElementById('projectClose');
 const taskClose = document.getElementById('taskClose');
 projectClose.addEventListener('click', () => toggleModal('project'));
