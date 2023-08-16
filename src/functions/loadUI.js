@@ -1,4 +1,7 @@
 import Storage from "./storage.js";
+import { format, parseISO } from 'date-fns';
+import Delete from "/src/assets/delete.svg";
+import Edit from "/src/assets/edit.svg";
 
 //Master Page
 function loadPage() {
@@ -80,32 +83,38 @@ function loadProjectTasks (projectName) {
         const newTask = document.createElement('div');
         newTask.classList.add('task');
 
-        const name = document.createElement('h1');
+        const leftSide = document.createElement('div');
+        leftSide.classList.add('leftSide');
+        const rightSide = document.createElement('div');
+        rightSide.classList.add('rightSide');
+
+        const name = document.createElement('h2');
         const date = document.createElement('h3');
         const notes = document.createElement('p');
-        const priority = document.createElement('p');
+        notes.classList.add('notes');
 
         name.textContent = task.getTitle();
-        date.textContent = task.getDueDate();
+        date.textContent = format(parseISO(task.getDueDate()), 'MMM dd');
         notes.textContent = task.getDescription();
-        priority.textContent = task.getPriority();
+        newTask.classList.add(`priority-${task.getPriority()}`);
 
-        const edit = document.createElement('button');
+        const edit = new Image();
+        edit.src = Edit;
         edit.classList.add('edit');
-        edit.textContent = 'Edit';
         edit.dataset.taskIndex = index;
 
-        const remove = document.createElement('button');
+        const remove = new Image();
+        remove.src = Delete;
         remove.classList.add('remove');
-        remove.textContent = 'Remove';
         remove.dataset.taskIndex = index;
 
-        newTask.appendChild(name);
-        newTask.appendChild(date);
-        newTask.appendChild(notes);
-        newTask.appendChild(priority);
-        newTask.appendChild(edit);
-        newTask.appendChild(remove);
+        leftSide.appendChild(name);
+        rightSide.appendChild(notes);
+        rightSide.appendChild(date);
+        rightSide.appendChild(edit);
+        rightSide.appendChild(remove);
+        newTask.appendChild(leftSide);
+        newTask.appendChild(rightSide);
         content.appendChild(newTask);
     })
 }
@@ -174,8 +183,8 @@ taskContent.addEventListener('click', function(e) {
 //Modal Close Buttons
 const projectClose = document.getElementById('projectClose');
 const taskClose = document.getElementById('taskClose');
-projectClose.addEventListener('click', () => toggleModal('project'));
-taskClose.addEventListener('click', () => toggleModal('task'));
+projectClose.addEventListener('click', () => resetForm('project'));
+taskClose.addEventListener('click', () => resetForm('task'));
 
 
 //Helper Functions
