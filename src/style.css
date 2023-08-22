@@ -1,5 +1,6 @@
 :root {
     --faded-bg: hsla(0, 0%, 100%, 0.65); 
+    --card-radius: .75em;
 }
 
 *{
@@ -84,7 +85,7 @@ button{
     margin: 1em;
     padding: .5em;
     width: auto;
-    border-radius: .75em;
+    border-radius: var(--card-radius);
     background-color: hsla(0, 0%, 100%, 0.65);
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
@@ -95,10 +96,21 @@ button{
     align-items: center;
 }
 
+.edit, 
 .remove, 
-.edit {
+.info {
     height: 35px;
     padding-left: .5em;
+}
+
+.edit:hover, 
+.remove:hover, 
+.info:hover {
+    filter: opacity(0.6);
+}
+
+.notes{
+    padding-right: 1em;
 }
 
 /* Border Priorities */
@@ -116,7 +128,8 @@ button{
 
 /* Modals */
 #projectModal,
-#taskModal{
+#taskModal, 
+#infoModal{
     display: none;
     position: fixed;
     z-index: 1;
@@ -133,10 +146,11 @@ button{
     display: flex;
     flex-direction: column;
     background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 50%; /* Could be more or less, depending on screen size */
+    margin: 10% auto; /* 15% from the top and centered */
+    padding: 15px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    border-radius: var(--card-radius);
+    width: 400px; /* Could be more or less, depending on screen size */
   }
 
   .form-head{
@@ -144,7 +158,34 @@ button{
     align-items: center;
     justify-content: space-between;
   }
-  
+
+  .inputs{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .item{
+    margin-top: .5em;
+    padding: .25em;
+    width: 100%;
+    border-radius: .5em;
+    border: 1px solid black;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+  }
+
+  #submit{
+    border: none;
+    background-color: rgba(29,253,228,.3);
+    box-shadow: 0px 0px 10px rgb(6, 49, 44);
+    font-size: 1.2em;
+    border-radius: .5em;
+    margin-top: .5em;
+    padding: .25em;
+  }
+  #submit:hover {
+    background-color: rgba(29,253,228,.8);
+  }
   /* The Close Button */
   .close {
     color: #aaa;

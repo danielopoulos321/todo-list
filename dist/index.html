@@ -33,17 +33,28 @@
                     <h3>New Task</h3>
                     <span id="taskClose" class="close">&times;</span>
                 </div>
-                <input type="text" name="taskName" id="taskName" placeholder="Task" required>
-                <input type="date" name="taskDate" id="taskDate" placeholder="Due Date" required>
-                <input type="text" name="taskeNotes" id="taskNotes" placeholder="Notes">
-                <select name="priority" id="priority" required>
-                    <option value="" disabled selected>Placeholder</option>
-                    <option value="low">Low</option>
-                    <option value="medium">Medium</option>
-                    <option value="high">High</option>
-                </select>
-                <input type="submit">
+                <div class="inputs">
+                    <input class="item" type="text" name="taskName" id="taskName" placeholder="Task" required>
+                    <input class="item" type="date" name="taskDate" id="taskDate" placeholder="Due Date" required>
+                    <input class="item" type="text" name="taskeNotes" id="taskNotes" placeholder="Notes">
+                    <select class="item" name="priority" id="priority" required>
+                        <option value="" disabled selected>Priority</option>
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </div>
+                <input id="submit" type="submit">
             </form>
+        </div>
+        <div id="infoModal">
+            <div class="modal-content">
+                <div class="form-head">
+                    <h3>Notes</h3>
+                    <span id="infoClose" class="close">&times;</span>
+                </div>
+                <p id="infoDetails"></p>
+            </div>
         </div>
     </div>
 </body>

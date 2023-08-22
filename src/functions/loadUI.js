@@ -2,6 +2,7 @@ import Storage from "./storage.js";
 import { format, parseISO } from 'date-fns';
 import Delete from "/src/assets/delete.svg";
 import Edit from "/src/assets/edit.svg";
+import Info from "/src/assets/info.svg";
 
 //Master Page
 function loadPage() {
@@ -101,16 +102,21 @@ function loadProjectTasks (projectName) {
         const edit = new Image();
         edit.src = Edit;
         edit.classList.add('edit');
-        edit.dataset.taskIndex = index;
+        edit.dataset.taskIndex = index;       
 
         const remove = new Image();
         remove.src = Delete;
         remove.classList.add('remove');
         remove.dataset.taskIndex = index;
 
+        const info = new Image();
+        info.src = Info;
+        info.classList.add('info');
+        info.dataset.taskIndex = index;
+
         leftSide.appendChild(name);
-        rightSide.appendChild(notes);
         rightSide.appendChild(date);
+        rightSide.appendChild(info);
         rightSide.appendChild(edit);
         rightSide.appendChild(remove);
         newTask.appendChild(leftSide);
@@ -180,11 +186,24 @@ taskContent.addEventListener('click', function(e) {
     }
 })
 
+//Info Buttons
+taskContent.addEventListener('click', function(e) {
+    if (e.target.classList.contains('info')) {
+        currentIndex = e.target.dataset.taskIndex;
+        const currentProject = document.querySelector('.active').textContent;
+        editingTask = Storage.getTask(currentProject, currentIndex);
+        document.getElementById('infoDetails').textContent = editingTask.getDescription();
+        toggleModal('info');
+    }
+})
+
 //Modal Close Buttons
 const projectClose = document.getElementById('projectClose');
 const taskClose = document.getElementById('taskClose');
+const infoClose = document.getElementById('infoClose');
 projectClose.addEventListener('click', () => resetForm('project'));
 taskClose.addEventListener('click', () => resetForm('task'));
+infoClose.addEventListener('click', () => toggleModal('info'));
 
 
 //Helper Functions
