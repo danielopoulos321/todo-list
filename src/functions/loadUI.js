@@ -28,7 +28,7 @@ function createProjects(name) {
     projectButton.textContent = name;
     projectButton.dataset.name = name.replace(/\s/g, "");
     projectButton.addEventListener('click', function(e) {
-        activeProject(this.dataset.name);
+        activeProject(name);
         loadProjectTasks(e.target.textContent);
     });
     projects.appendChild(projectButton);
@@ -57,7 +57,7 @@ function activeProject(e) {
         let dataName = e.replace(/\s/g, "");
         const currentProject = document.querySelector(`[data-name=${dataName}]`);
         currentProject.classList.add('active');
-        projectName.innerHTML = currentProject.dataset.name;
+        projectName.innerHTML = e;
     } else {
         e.target.classList.add('active');
     }

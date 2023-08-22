@@ -174,7 +174,7 @@ button{
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
   }
 
-  #submit{
+  .submit{
     border: none;
     background-color: rgba(29,253,228,.3);
     box-shadow: 0px 0px 10px rgb(6, 49, 44);
@@ -183,7 +183,8 @@ button{
     margin-top: .5em;
     padding: .25em;
   }
-  #submit:hover {
+  
+  .submit:hover {
     background-color: rgba(29,253,228,.8);
   }
   /* The Close Button */

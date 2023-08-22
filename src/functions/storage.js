@@ -1,5 +1,6 @@
 import Todo from "./todo";
 import Project from "./projects";
+import { lastDayOfDecade } from "date-fns";
 
 const Storage = (() => {
 
@@ -36,6 +37,11 @@ const Storage = (() => {
         return todoList.getProjects();
     }
 
+    function getProject(currentProject) {
+        const todoList = loadTodo();
+        return todoList.getProject(currentProject);
+    }
+
     function addTask(currentProject, taskName, taskDescription, taskDate, taskPriority) {
         const todoList = loadTodo();
         todoList.getProject(currentProject).pushTask(taskName, taskDescription, taskDate, taskPriority);
@@ -63,7 +69,7 @@ const Storage = (() => {
     }
 
 
-    return {loadTodo, addProject, getProjects, addTask, getTask, updateTask, deleteTask}
+    return {loadTodo, addProject, getProjects, getProject, addTask, getTask, updateTask, deleteTask}
 })();
 
 export default Storage;
